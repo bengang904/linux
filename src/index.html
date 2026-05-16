@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="UTF-8">
+<title>Browser Linux</title>
+<style type="text/css">
+body {
+background-color: black;
+color: white;
+}
+.statusbar {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  font-size: 14px;
+}
+
+.toolbox {
+  border: 1px outset white;
+  background-color: black;
+  width: 300px;
+}
+</style>
+<link rel="stylesheet" href="lib/xtermjs/xterm.css">
+<script src="lib/v86/libv86.js"></script>
+<script src="lib/xtermjs/xterm.js"></script>
+<script src="lib/localForage/localForage.js"></script>
+</head>
+<body>
+<p class="statusbar" id="save_time"></p>
+<script src="startup.js" defer></script>
+<script src="buttons.js" defer></script>
+<p id="waiting_text">
+Linux 启动中，账号：root <br>
+</p>
+<div id="screen_container">
+    <div style="white-space: pre; font: 14px monospace; line-height: 14px"></div>
+    <canvas id="vga" style="display: none" onclick="emulator.lock_mouse()"></canvas>
+</div>
+<div id="terminal"></div>
+<img class="fluff" id="toggle" src="icon/toolbox.png" onclick="toggleToolbox()" width="25px" height="25px"></img>
+<div id="toolbox_div" class="toolbox">
+<button id="save_restore" onclick="saveRestore()">保存当前点</button>
+<button id="fullscreen" onclick="fullscreen()">全屏</button>
+<button id="screenButton" onClick="toggleScreen()"> hide screen </button>
+<button id="pause_button" onclick="startStop()">暂停</button>
+<button onclick="saveToFile()">保存到文件</button>
+<label>
+<hr>
+将文件发送到模拟器
+<input id="upload_files" type="file" multiple>
+<p>上传路径: </p><input type="text" value="/user" id="upload_path">
+<hr>
+<label>
+从文件恢复: <input id="restore_file" type="file">
+</label>
+<hr>
+<p>网络代理</p><input type="test" value="wss://relay.widgetry.org/" id="proxy_setting"><button onclick="setProxyFromSettings()">保存并重新加载</button>
+<hr>
+<button id="clear_save" onclick="delete_data()">删除保存的数据</button>
+<button id="autosave_toggle" onclick="toggle_autosave()">启用自动保存</button>
+<button id="save" onclick="startAutosave()">立即保存</button>
+<p id="storage_error" style="display: none">由于 Web 存储错误，持久化功能已被禁用</p>
+<p id="save_time"></p>
+</div>
+<p class="fluff" id="boot_time"></p>
+</body>
